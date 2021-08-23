@@ -1,0 +1,25 @@
+:root {
+  --primary-color: #e5bf34;
+  --secondary-color: #0000ff;
+  --tertiary-color: #fff;
+
+  --small: 1rem;
+  --medium: 2rem;
+  --big: 3rem;
+
+  --transition-speed: .15s;
+
+  --border-width: .25rem;
+
+  --font-family:  'Bebas Neue', cursive;
+
+
+}
+
+.register-section {
+  --primary-color: #0000ff;
+  --secondary-color: #e5bf34;
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
