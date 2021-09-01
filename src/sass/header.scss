@@ -1,5 +1,5 @@
-@import "variables";
-@import "mixins";
+@import "custom_variables";
+@import "custom_mixins";
 
 .header {
   @include flexbox;
@@ -18,12 +18,23 @@
     position: relative;
     margin: 1rem 0;
     z-index: 999;
-
+    display: inline-block;
+    &:after {
+      content: '';
+      position: absolute;
+      top: 1.25rem;
+      right: .25rem;
+      bottom: 1.25rem;
+      left: .25rem;
+      border: 2px solid var(--secondary-color);
+      pointer-events: none;
+      z-index: 999;
+    }
     svg {
       box-sizing: content-box;
       fill: var(--primary-color);
       padding: .5rem;
-      background: var(--secondary-color);
+      background: var(--tertiary-color);
       width: 36px;
     }
   }

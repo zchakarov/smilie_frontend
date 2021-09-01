@@ -52,22 +52,44 @@ export default function Register(){
     const [eMail, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('');
+    const [message, setMessage] = useState('');
+
     const [registered, setRegistered] = useState(false);
     let history = useHistory();
     const register = () => {
         if(username && eMail && password && passwordRepeat) {
-            Axios.post('http://localhost:3001/api/register' ,{
+            Axios.post('http://localhost:3001/api/users/register' ,{
                 username: username,
                 email: eMail,
                 password: password,
                 password_repeat: passwordRepeat,
             }).then(res => {
-                console.log(res)});
-            setRegistered(true);
-            setUsername('');
-            setEmail('');
-            setPassword('');
-            setPasswordRepeat('');
+                setMessage(res.data.msg);
+                setRegistered(true);
+                setUsername('');
+                setEmail('');
+                setPassword('');
+                setPasswordRepeat('');
+            })
+                .catch(function (error) {
+                    if (error.response) {
+                        // Request made and server responded
+                        console.log(error.response.data);
+                        console.log(error.response.status);
+                        console.log(error.response.headers);
+                        setMessage(error.response.data.message);
+                    } else if (error.request) {
+                        // The request was made but no response was received
+                        console.log(error.request);
+
+                    } else {
+                        // Something happened in setting up the request that triggered an Error
+                        console.log('Error', error.message);
+
+                    }
+
+                });
+
         }
 
     };
@@ -78,8 +100,10 @@ export default function Register(){
         <Container className="p-0" fluid>
             <Row className="section register-section m-0">
                 <Col lg={6} sm={8}>
+                    {message?<h2>{message}</h2>:'' }
+
                     <h1 className="big">Register</h1>
-                    <form id="login-form" className="form-label form-css-label">
+                    <div id="login-form" className="form-label form-css-label">
                         <div className="form-group">
                             <fieldset>
                                 <input type="username" className="form-control" name="username"  placeholder=" " required id="username" value={username} onChange={event => setUsername(event.target.value)} />
@@ -118,11 +142,11 @@ export default function Register(){
                         <div className="form-group">
                             <button onClick={ (e) => {
                                 register();
-                            }} type="submit" className="btn">Submit</button>
-                            <Link className="btn btn_secondary mx-2" to='/'>Login</Link>
+                            }} type="submit" className="btn btn_secondary">Submit</button>
+                            <Link className="btn btn_secondary mx-2" to='/login'>Login</Link>
 
                         </div>
-                    </form>
+                    </div>
 
                 </Col>
             </Row>

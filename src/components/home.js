@@ -1,73 +1,45 @@
 import React, {useEffect, useState} from "react";
-import axios from "axios";
-import {Col, Container, Image, Row} from "react-bootstrap";
+import {Col, Container, Image, Row, Button, Modal} from "react-bootstrap";
+import Axios from "axios";
 
+import Post from "./post";
+import CreatePost from "./createPost";
+import DeletePost from "./deletePost";
+import EditPost from "./editPost";
 export default function Home() {
     const [posts, setPosts] = useState([]);
-    const getResult = async () => {
-        const posts_list = await axios.get('http://localhost:3001/api/posts-list');
-        setPosts(posts_list.data);
+    const [postId, setPostId] = useState('');
 
+
+
+    const getResult = async () => {
+        const posts_list = await Axios.get('http://localhost:3001/api/posts/list');
+        setPosts(posts_list.data);
     };
+
     useEffect(  () => {
         getResult();
-
-    }, [setPosts]);
-
+    }, []);
 
     return (
-        <Container className="section" fluid>
-            <Row className="flex-column">
+        <div>
+            <Container className="m-0 p-0 " fluid>
+                <Row className="section flex-column align-items-center justify-content-start m-0 pt-5">
+                    <CreatePost getResult={getResult}/>
+                    {posts.map((post, index) => {
+                        return (
+                            <Col xs={8} sm={8} md={5} lg={5} className='post my-5' key={index}>
+                                <Post post={post} postId={posts[index].id} getResult={getResult} setPostId={setPostId}/>
 
-            {posts['list'].map((post, index) => {
-                return (
-                        <Col key={index} sm={10} lg={8} className='post'>
-                            <h1>{post.title}</h1>
-                            <p>{post.text}</p>
-                        </Col>
+                            </Col>
 
-                )
-            })}
-            </Row>
 
-        </Container>
+                    )
+                    })}
+                </Row>
+
+            </Container>
+
+        </div>
     );
 };
-
-/*
-*
-*             {post.map((i, index) => {
-
-                //const date = new Date(i.date_gmt);
-                return (
-                    <div key={index} className='article section'>
-                        <div className='content-container' key={index}>
-                            {i._embedded['wp:featuredmedia'] &&
-                            <Container className="py-5" fluid="xl">
-                                <Row className="modal-content-header justify-content-center">
-                                    <Col lg={4} md={4} sm={8} xs={12} className="modal-content-thumbnail">
-                                        <Image src={i._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url} fluid/>
-                                    </Col>
-                                    <Col lg={8} md={8} sm={8} xs={12} className="modal-content-text d-flex justify-content-center align-items-center">
-                                        <h1>{i.title.rendered}</h1>
-                                    </Col>
-                                </Row>
-                            </Container>
-                            }
-                            {i.content.rendered?<div className="modal-content-body">
-                                <Container fluid="xl">
-                                    <Row className='justify-content-center'>
-                                        <Col xs={12} sm={10} lg={10}  dangerouslySetInnerHTML={ {__html: i.content.rendered} } />
-
-                                    </Row>
-                                </Container>
-                            </div>: '' }
-
-                        </div>
-
-                    </div>
-                )
-            })}
-
-*
-* */

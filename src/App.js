@@ -8,7 +8,7 @@ import Header from "./components/header";
 import Login from "./components/login";
 import Register from "./components/register";
 import Article from "./components/article";
-import CreatePost from "./components/createPost";
+import CreatePost from "./components/post";
 import Home from "./components/home";
 import './index.scss';
 
@@ -33,6 +33,7 @@ const App = withRouter(({ location }) => {
                     exit: 300,
                   }}
                   unmountOnExit={true}
+                  appear
               >
                 <Switch location={location} className='container'>
                   <Route exact path='/' component={Home}/>

@@ -54,7 +54,7 @@ export default function Login(){
     const [password, setPassword] = useState([]);
     const [message, setMessage] = useState('');
     const login = () => {
-        Axios.post('http://localhost:3001/api/login' ,{
+        Axios.post('http://localhost:3001/api/users/login' ,{
             username: username,
             password: password,
         }).then(res => {
@@ -84,7 +84,7 @@ export default function Login(){
                 <Col lg={6} sm={8}>
                     <h1 className="big">Login</h1>
                     {message &&
-                        <Redirect to='/ueber-mich' /> }
+                        <Redirect to='/' /> }
                     <div id="login-form" className="form-label form-css-label">
                         <div className="form-group">
                             <fieldset>
@@ -104,9 +104,8 @@ export default function Login(){
 
                         </div>
                         <div className="form-group">
-                            <button type="submit" onClick={login} className="btn">Submit</button>
+                            <button type="submit" onClick={login} className="btn btn_secondary">Submit</button>
                             <Link className="btn btn_secondary mx-2" to='/sign-up'>Register</Link>
-                            <Link className="btn btn_secondary mx-2" to='/create-post'>Create Post</Link>
 
                         </div>
                     </div>

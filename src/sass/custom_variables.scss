@@ -2,6 +2,8 @@
   --primary-color: #e5bf34;
   --secondary-color: #0000ff;
   --tertiary-color: #fff;
+  --text-color: #892953;
+
 
   --small: 1rem;
   --medium: 2rem;
@@ -12,14 +14,16 @@
   --border-width: .25rem;
 
   --font-family:  'Bebas Neue', cursive;
-
+  --font-family-text: 'Roboto Slab', serif;
 
 }
 
 .register-section {
-  --primary-color: #0000ff;
-  --secondary-color: #e5bf34;
+
 }
 
 
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
+
+$fa-font-path:        "../webfonts";
